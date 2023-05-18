@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title> 0.10 Exhibition - VR</title>
+    <!-- A-Frame -->
+  <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+ 
+    <!-- A-Frame Event -->
+  <script src="https://unpkg.com/aframe-event-set-component@5.0.0/dist/aframe-event-set-component.min.js"></script>
+     <!-- A-Frame VR -->
+  <script src="https://unpkg.com/super-hands@^3.0.1/dist/super-hands.min.js"></script>
+  <script src="https://rawgit.com/fernandojsg/aframe-teleport-controls/master/dist/aframe-teleport-controls.min.js"></script>
+  <link rel="stylesheet" href="/StyleAframe.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto&display=swap">
+  </head>
+  
+  <body>
+    <div id="loading-screen">
+      <div class="spinner"></div>
+      <div class="loading-text">Loading world</div>
+  </div>
+
+  <script>
+      // Wait for the assets to load before hiding the loading screen
+      window.addEventListener('load', function() {
+          var loadingScreen = document.getElementById('loading-screen');
+          loadingScreen.style.display = 'none';
+      });
+  </script>
+
+    <div class="footer">
+      <a href="https://player.vimeo.com/video/700104177?h=2a1a06ff85&color=3132FE&portrait=0" class="about-btn">Watch Preview video</a>
+      <a class="about-btnn">0,10 Exhibition VR</a>
+    <ul class="credits">
+				<li><a href="https://www.remipetitjean.com/" target="_blank"><img src="01Remi.png"></a></li>
+        <li><a href="https://imaginary-museum.world/" target="_blank"><img src="02Imaginary.png"></a></li>
+        <li><a href="https://www.remipetitjean.com/010-exhibition" target="_blank"><img src="03Malevich.png"></a></li>
+    </ul>
+  </div>
+
+
+
+    <a-scene 
+             fog="type: linear; color: #FFFFFF; far: 100; near: 0"
+             device-orientation-permission-ui="enabled: false"
+             renderer="antialias: true;
+             colorManagement: true;
+             physicallyCorrectLights: true;
+             maxCanvasWidth: 4096;
+             maxCanvasHeight: 2048 "
+             background="color: #c2c2c2"
+             loading-screen
+             >
+
+                   <!-- VR camera  -->
+                <a-entity id="cameraRig" position="0 0.1 0">  
+                    <a-camera position="0 1.45 0" wasd-controls="enabled:false" fov="50"></a-camera>
+                    <a-entity id="head" camera wasd-controls="enabled.false" look-controls="enabled.true" fov="40"></a-entity>
+                    <a-entity id="cursor" cursor="rayOrigin: mouse" raycaster="objects: .clickable" ></a-entity>  
+
+                    <!-- hand controls  -->
+                    <a-entity id="left-hand" 
+                    oculus-touch-controls="hand: left;" valve-index-controls="hand: left" vive-controls="hand: left" vive-focus-controls="hand: left" windows-motion-controls="" generic-tracked-controller-controls="hand: left">></a-entity>
+                    <a-entity id="right-hand" laser-controls="defaultModelColor: #000000" raycaster="objects: .clickable; far: 8; lineColor: #0800a1; lineOpacity: 0" 
+                    teleport-controls="cameraRig: #cameraRig; teleportOrigin: #head; button: trigger; hitCylinderColor: #0800a1; curveHitColor: #737373; curveLineWidth: 0; curveMissColor: #1a1b6b; type: line; curveNumberPoints: 5; curveShootingSpeed: 3; hitCylinderRadius: 0.3; hitCylinderHeight: 0.25; collisionEntities: #groundfut , #ground" 
+                    oculus-touch-controls="hand: right;" valve-index-controls="hand: right" vive-controls="hand: right" vive-focus-controls="hand: right" windows-motion-controls="" generic-tracked-controller-controls="hand: right">                   
+                    <a-box id="cone" rotation="-90 0 0" opacity="0.3" transparent="true" src="#cont" scale="0.02 0.8 0.02" position="-0.015 0 -0.4" open-ended="true" color="#696969" segments-radial="12" wireframe="false" 
+                    animation="property: opacity; from:0.3; to : 0.01; dir: alternate; loop:true; dur:3000" ></a-box>
+                    <a-box id="cone1" rotation="-90 0 0" opacity="0.05" transparent="true" src="#cont" scale="0.02 0.8 0.02" position="-0.015 0 -0.4" open-ended="true" color="#696969" segments-radial="8" wireframe="true" wireframe-linewidth="0.5"></a-box>
+                    </a-entity>
+                 </a-entity>  
+
+                  <a-assets>
+                    <a-asset-item id="galleryfut" src="FutureUpdated - NoInfo .glb"></a-asset-item>
+                    <a-asset-item id="futfloor" src="FutureUpdatedFloor.glb"></a-asset-item>
+                    <a-asset-item id="gallery" src="Malevich0.10Malevich05.glb"></a-asset-item>
+                    <a-asset-item id="galleryfloor" src="MalevichFloorNew.gltf"></a-asset-item>
+                    <a-asset-item id="galleryfuturist" src="Futurist2.glb"></a-asset-item>
+                    <a-asset-item id="malevichshape" src="MScen1.glb"></a-asset-item>
+                    <a-asset-item id="MainInfo" src="MainRoomInfos.glb"></a-asset-item>
+                    <a-asset-item id="MainFutInfo" src="FuturistRoomInfo.glb"></a-asset-item>
+                    <a-asset-item id="future1" src="FutureUpdated-1.glb"></a-asset-item>
+                    <a-asset-item id="future2" src="FutureUpdated-2.glb"></a-asset-item>
+                    <a-asset-item id="future3" src="FutureUpdated-3.glb"></a-asset-item>
+                    <a-img id="cont" src="Line.png"></a-img>
+                    <a-img id="01Text" src="01Texte.png"></a-img>
+                    <a-img id="02Text" src="Texte02.png"></a-img>
+                    <a-img id="info" src="iNFObUTTON.png"></a-img>
+                    <a-img id="futuristinfo1" src="03Text.png"></a-img>
+                    <a-img id="futuristinfo2" src="04Text.png"></a-img>
+                    <a-img id="05Text" src="05Text.png"></a-img>
+                    <a-img id="infoel1" src="06TextElLissitzki.png"></a-img>
+                    <a-img id="infoel2" src="07TextElLissitzki.png"></a-img>
+                    <a-img id="infoel3" src="08TextElLissitzki.png"></a-img>
+                    <a-img id="infoel4" src="09TextElLissitzki.png"></a-img>
+                    <a-img id="infoel5" src="10infoEl.png"></a-img>
+                    <a-img id="infode" src="11infoEl.png"></a-img>
+                    <a-img id="infowhite" src="12infowhitemal.png"></a-img>
+                    <a-img id="infomal1" src="13InfoMalevich.png"></a-img>
+                    <a-img id="infomal2" src="14textemalevich.png"></a-img>
+                    <audio id="MusicCompo1" src="MusicCompo_1.mp3"></audio>
+                    <audio id="MusicCompo2" src="MusicCompo_2.mp3"></audio>
+                    <audio id="MusicCompo3" src="MusicCompo_3.mp3"></audio>
+                    <a-img id="backgroundblack" src="0.10Background.jpg"></a-img>
+                    <a-img id="backgroundcolor" src="0.10Backgroundcolor.jpg"></a-img>
+                  </a-assets>
+
+                </a-entity>
+
+                  <a-entity light="type: ambient; color: #BBB; intensity:4"></a-entity>
+                  <a-gltf-model id="structure" src="#gallery" scale="0.67 0.67 0.67" rotation="0 -45 0" visible="true" material="flatShading:true"></a-gltf-model>
+                  <a-gltf-model id="futuriststructure" src="#galleryfuturist" scale="0.67 0.67 0.67" rotation="0 -45 0" visible="false" material="flatShading:true"></a-gltf-model>
+                  <a-gltf-model id="ground"  src="#galleryfloor" position="0 0 0" shader="flat" visible="false" scale="0.67 0.67 0.67" rotation="0 -45 0" gltf-model></a-gltf-model>
+                  <a-gltf-model id="futurestructure" src="#galleryfut" scale="0.67 0.67 0.67" rotation="0 -45 0" visible="false" material="flatShading:true"></a-gltf-model>
+                  <a-gltf-model id="groundfut"  src="#futfloor" position="0 0 0" shader="flat" visible="false" scale="0 0 0" rotation="0 -45 0" gltf-model></a-gltf-model>
+                  
+                  <a-entity id="mainroom" visible="true">
+                    <a-plane id="infoi" src="#info" transparent="true" opacity="0.2" position="2.63362 1.74348 3.97274" rotation="0 -135 0" scale="0.2 0.2 0.2" class="clickable"
+                    animation__mouseenter="property: opacity; from: 0.5; to: 1 ; startEvents: mouseenter; easing: linear; dur:500"
+                    animation__mouseleave="property: opacity; from: 1; to: 0.5 ; startEvents: mouseleave; easing: linear; dur : 500"
+                    event-set__button="_event:click; class:none ; visible:false"
+                    event-set__ima="_event:click; _target : #MainRInfo; scale : 0.67 0.67 0.67"
+                    event-set__imainfo="_event:click; _target : #imainfo; animation.enabled:true"
+                    event-set__imaimage="_event:click; _target : #imaimage; animation.enabled:true"></a-plane>
+                    <a-plane id="imainfo" material="src: #01Text; transparent: true ; opacity: 0.0" geometry="" rotation="0 -135 0" position="1.72368 1.4 4.87873" scale="1.66213 1.20763 0.25971"
+                    animation="property: material.opacity; from: 0; to :1; loop: false; dur:1000; enabled: false"></a-plane>
+                    <a-plane id="imaimage" material="src: #02Text; transparent: true; opacity:0" geometry="" rotation="0 -135 0" position="4.8159 1.39216 1.77377" scale="3.47206 1.26132 0.70447"
+                    animation="property: material.opacity; from: 0; to: 1; enabled: false"></a-plane>
+                    <a-gltf-model id="MainRInfo" src="#MainInfo" scale="0. 0. 0" rotation="0 -45 0" visible="true" material="flatShading:true"></a-gltf-model>
+                  </a-entity>
+
+                  <a-entity id="futuristroom" visible="false">
+                    <a-plane id="futuristi" src="#info" transparent="true" rotation="0 -45 0" position="3.64421 1.51791 -2.9318" scale="0.2 0.2 0.2" opacity="0.2" geometry="" class="futurist"
+                    animation__mouseenter="property: opacity; from: 0.5; to: 1 ; startEvents: mouseenter; easing: linear; dur:500"
+                    animation__mouseleave="property: opacity; from: 1; to: 0.5 ; startEvents: mouseleave; easing: linear; dur : 500"
+                    event-set__button="_event:click; class:none; visible:false"
+                    event-set__ima="_event:click; _target : #MainFuturistInfo; scale : 0.67 0.67 0.67"
+                    event-set__imainfo="_event:click; _target : #futinfo1; animation.enabled:true"
+                    event-set__imaimage="_event:click; _target : #futinfo2; animation.enabled:true"></a-plane>
+                    <a-plane id="futinfo1" material="src: #futuristinfo1; transparent: true; opacity:0" geometry="" rotation="0 -45 0" position="3.31374 2.82561 -3.28626" scale="0.7307 0.94991 1.82677" 
+                    animation="property: material.opacity; from: 0; to: 1; loop: NaN; enabled: false"></a-plane>
+                    <a-plane id="futinfo2" material="src: #futuristinfo2; transparent: true; opacity:0" geometry="" rotation="0 -45 0" position="3.3 0.83 -3.3" scale="0.7307 0.94991 1.82677" 
+                    animation="property: material.opacity; from: 0; to: 1; enabled: false"></a-plane>
+                    <a-gltf-model id="MainFuturistInfo" src="#MainFutInfo" scale="0. 0. 0" rotation="0 -45 0" visible="true" material="flatShading:true"></a-gltf-model>
+                  </a-entity>
+
+                  <a-entity id="thefuture" visible="false">
+                    <a-gltf-model id="thefutureinfo1" src="#future1" scale="0 0 0" rotation="0 -45 0" visible="true" ></a-gltf-model>
+                    <a-gltf-model id="thefutureinfo2" src="#future2" scale="0 0 0" rotation="0 -45 0" visible="true" ></a-gltf-model>
+                    <a-gltf-model id="thefutureinfo3" src="#future3" scale="0 0 0" rotation="0 -45 0" visible="true"></a-gltf-model>
+                    <a-plane id="thefutureinfo" src="#info" transparent="true" rotation="0 45 0" position="-13.75779 2.14891 -10.48671" scale="0.2 0.2 0.2" opacity="0.2" geometry="" class="fut" 
+                    animation__mouseenter="property: opacity; from: 0.2; to: 1 ; startEvents: mouseenter; easing: linear; dur:500"
+                    animation__mouseleave="property: opacity; from: 1; to: 0.2 ; startEvents: mouseleave; easing: linear; dur : 500"
+                    event-set__button="_event:click; class:none; visible:false"
+                    event-set__im="_event:click; _target : #thefutureinfo1; scale: 0.67 0.67 0.67"></a-plane>
+
+                    <a-plane id="thefutureinfode" src="#info" transparent="true" rotation="0 -45 0" position="0.35374 1.51791 -23.72368" scale="0.2 0.2 0.2" opacity="0.2" geometry="" class="fut"
+                    animation__mouseenter="property: opacity; from: 0.2; to: 1 ; startEvents: mouseenter; easing: linear; dur:500"
+                    animation__mouseleave="property: opacity; from: 1; to: 0.2 ; startEvents: mouseleave; easing: linear; dur : 500"
+                    event-set__button="_event:click; class:none; visible:false"
+                    event-set__im="_event:click; _target : #thefutureinfo2; scale: 0.67 0.67 0.67"></a-plane>
+                  
+                    <a-plane id="thefutureinfomal" src="#info" transparent="true" rotation="" position="0.02394 1.51791 23.25414" scale="0.2 0.2 0.2" opacity="0.2" geometry="" class="fut"
+                    animation__mouseenter="property: opacity; from: 0.2; to: 1 ; startEvents: mouseenter; easing: linear; dur:500"
+                    animation__mouseleave="property: opacity; from: 1; to: 0.2 ; startEvents: mouseleave; easing: linear; dur : 500"
+                    event-set__button="_event:click; class:none; visible:false"
+                    event-set__im="_event:click; _target : #thefutureinfo3; scale: 0.67 0.67 0.67"
+                    event-set__imainfo1="_event:click; _target : #malinfo1; animation.enabled:true"></a-plane>
+
+                    <a-plane id="futurein1" src="#05Text" transparent="true" rotation="0 45 0"  position="-12.26402 1.553 -11.98048" scale="1.64161 0.5244 0.456" opacity="1" geometry=""></a-plane>
+                    <a-plane id="el1" src="#infoel1" transparent="true" rotation="0 135 0" position="-4.88162 0.9142 -15.12348" scale="1.4 0.23 0.2" opacity="1" geometry=""></a-plane>
+                    <a-plane id="el2" src="#infoel2" transparent="true" rotation="0 135 0" position="-5.19735 1.77161 -15.43921" scale="0.4276 1.4282 0.34208" opacity="1" geometry=""></a-plane>
+                    <a-plane id="el3" src="#infoel3" transparent="true" rotation="0 -135 0" position="-6.66504 1.43608 -14.73683" scale="0.40293 0.54883 0.20884" opacity="1" geometry=""></a-plane>
+                    <a-plane id="el4" src="#infoel4" transparent="true" rotation="0 135 0" position="-7.53992 2.27202 -15.34677" scale="0.33339 0.39879 0.15175" opacity="1" geometry=""></a-plane>
+                    <a-plane id="el5" src="#infoel5" transparent="true" rotation="0 135 0" position="-7.91728 1.00326 -15.72413" scale="1.4 0.23 0.2" opacity="0" geometry=""></a-plane>
+                    <a-plane id="deinfo" src="#infode" transparent="true" rotation="0 -45 0" position="0.795 1.51791 -23.28242" scale="1 1 0.2" opacity="1" geometry=""></a-plane>
+                    <a-plane id="whiteinfo" src="#infowhite" transparent="true" rotation="0 -135 0" position="17.36666 1.72146 9.0756" scale="0.91311 0.91311 0.91311" opacity="1" geometry=""></a-plane>
+                    <a-plane id="malinfo1" src="#infomal1" transparent="true" rotation="" position="1.73106 1.52964 23.25414" scale="1.2 0.9 0.81522" opacity="0" geometry=""
+                    animation="property: material.opacity; from: 0; to: 1; enabled: false"></a-plane>
+                    <a-plane id="malinfo2" src="#infomal2" transparent="true" rotation="0 -90 0" position="-1.20795 2.76348 18.61143" scale="4 1 0.81522" opacity="1" geometry=""></a-plane>
+                  </a-entity>
+
+                <a-entity id="M" visible="false">
+                  
+                  <a-gltf-model id="malevichhimself" src="#malevichshape" visible="" scale="1 1 1" rotation="0 0 0"  gltf-model="MScen1.glb"></a-gltf-model>
+                  <a-text color="#000000" 
+                    text="anchor: left; width: 2.07; ; value: This is a new plastic realism, plastic precisely because the realism of hills, sky, and water is missing. Every real form is a world. And any plastic surface is more alive than a drawn or painted face from which stares a pair of eyes and a smile.There is movement and movement. 
+                    
+                    *** 
+                    
+                    There are movements of small tension and movements of great tension and there is also a movement which our eyes cannot catch although it can be felt.; alphaTest: 2.18; xOffset: -0.24; yOffset: 0.96; zOffset: -0.159" rotation="0 136.14451240560084 0" position="-3.82277 1.62201 2.66132" scale="0.8 0.8 0.8" transparent="true"></a-text>
+                    
+                    <a-text value="I transformed myself in the zero of form and emerged from nothing to creation, that is, to Suprematism, to the new realism in painting – to non-objective creation." color="#000000" text="width: 1.77; value: It is from zero, in zero, that the true movement of being begins. 
+                    
+                    I transformed myself in the zero of form and emerged from nothing to creation, that is, to Suprematism, to the new realism in painting – to non-objective creation.
+                    
+                    I paint energy, not the soul" rotation="0 -90 0" scale="" position="5.5 1.14682 0.50263"></a-text>
+                  <a-text color="#000000" text="value: ...the experience of pure non-objectivity in the white emptiness of a liberated nothing." rotation="0 27.69792573221426 0" position="-7.45431 4.3361 -15.35632"></a-text>  
+                </a-entity>
+                
+                  <a-entity id="M1" geometry=""  position="-3.264 1.58 3.264" scale="1 1 0.07617" rotation="0 135 0" material="opacity:1; color: #ffffff; transparent: true; visible:false; src:#backgroundblack" class="return"
+                  animation__mouseenter="property: material.src :#backgroundcolor ;startEvents: mouseenter" 
+                  animation__mouseleave="property: material.src :#backgroundblack;  startEvents: mouseleave"
+                  event-set__m="_event:click; material.visible:false"
+                  event-set__visible="_event:click; _target: #M; visible: false"
+                  event-set__m1="_event:click; _target: #cursor; raycaster.objects: .clickable"
+                  event-set__clickable="_event:click; _target: #right-hand; raycaster.objects: .clickable"
+                  event-set__m2="_event:click; _target: #structure; visible:true"
+                  event-set__mainroom="_event:click; _target: #mainroom; visible:true"></a-entity>
+
+                  <a-entity id="F1" geometry="" position="-3.264 1.58 3.264" scale="1 1 0.07617" rotation="0 135 0" material="opacity:1; color: #ffffff; transparent: true; visible:false;src:#backgroundblack " class="futurist" 
+                  animation__mouseenter="property: material.src :#backgroundcolor ;startEvents: mouseenter" 
+                  animation__mouseleave="property: material.src :#backgroundblack;  startEvents: mouseleave"
+                  event-set__m="_event:click; material.visible:false"
+                  event-set__m1="_event:click; _target: #cursor; raycaster.objects: .clickable"
+                  event-set__clickable="_event:click; _target: #right-hand; raycaster.objects: .clickable"
+                  event-set__structure="_event:click; _target: #structure; visible:true"
+                  event-set__structure1="_event:click; _target: #futuriststructure; visible:false"
+                  event-set__mainroom="_event:click; _target: #mainroom; visible:true"
+                  event-set__futuristroom="_event:click; _target: #futuristroom; visible:false"></a-entity>
+
+                  <a-entity id="Fut1"  geometry="" position="-3.264 1.58 3.264" scale="1 1 0.07617" rotation="0 135 0" material="opacity:1; color: #ffffff; transparent: true; visible:false;src:#backgroundblack " class="fut" 
+                  animation__mouseenter="property: material.src :#backgroundcolor; startEvents: mouseenter" 
+                  animation__mouseleave="property: material.src :#backgroundblack;  startEvents: mouseleave"
+                  event-set__m="_event:click; material.visible:false"
+                  event-set__m1="_event:click; _target: #cursor; raycaster.objects: .clickable"
+                  event-set__clickable="_event:click; _target: #right-hand; raycaster.objects: .clickable"
+                  event-set__structure="_event:click; _target: #structure; visible:true"
+                  event-set__structure1="_event:click; _target: #futurestructure; visible:false" 
+                  event-set__ground="_event:click; _target: #groundfut; scale: 0 0 0"
+                  event-set__mainroom="_event:click; _target: #mainroom; visible:true"
+                  event-set__future="_event:click; _target: #thefuture; visible:false"></a-entity>
+          
+                  <a-entity id="world" rotation="0 -45 0">
+
+                    <a-text id="010" text="value: 0,10 ; transparent:true; opacity:1; color:#000000; opacity:1" position="0.222 2.5 4.67" rotation="0 180 0" scale="1 1 1"></a-text>
+
+                    <a-text id="I" position="0.43 2.3 4.67" rotation="0.103705360918679 -179.85603555392646 3.379305075681595" text="value: Unveiling non-objectivism; color: #000000; opacity:0 ;  transparent:true" scale="0.35 0.35 0.35"
+                    animation="property: text.opacity; to: 1.0; loop: NaN; dur: 500 ;enabled: false" 
+                    animation__2="property: text.opacity; to: 0.0; loop: NaN; dur: 500; enabled: false"></a-text>
+
+                    <a-box id="sqauremalevich" class="clickable" material="color: #030026" geometry="" position="0.30584 1.88871 4.65489" rotation="0 5 0" scale="0.26284 0.26284 0.01646"
+                    animation="property: material.color; from:#1d1f84; to : #080606; dir:alternate; loop:true; dur: 1800 "
+                    animation__mouseenter="property: opacity; from: 1.0; to: 0.5; startEvents: mouseenter ; easing: linear" 
+                    animation__mouseleave="property: opacity; from: 0.5; to: 1;  startEvents: mouseleave; easing: linear"
+                    event-set__text="_event:mouseenter; _target: #I; animation.enabled:true; animation__2.enabled:false"
+                    event-set__text1="_event:mouseleave; _target: #I; animation.enabled:false; animation__2.enabled:true"
+                    event-set__pointerout="_event:click; _target: #cursor; raycaster.objects: .return"
+                    event-set__pointerout1="_event:click; _target: #right-hand; raycaster.objects: .return"
+                    event-set__structure="_event:click; _target: #structure; visible : false"
+                    event-set__m="_event:click; _target: #M; visible:true"
+                    event-set__m1="_event:click; _target: #M1; material.visible:true"
+                    event-set__mainroom="_event:click; _target: #mainroom; visible:false"
+                    sound="src: #MusicCompo1; on: click; distanceModel:linear"></a-box>
+
+                    <a-text id="II" position="0.47 2.3 4.67" rotation="0 180 0" text="value: The Last Futurist Exhibition; color: #000000 ; opacity:0; transparent:true" scale="0.35 0.35 0.35" 
+                    animation="property: text.opacity; to: 1.0; loop: NaN; dur: 500; enabled: false" 
+                    animation__2="property: text.opacity; to: 0.0; loop: NaN; dur: 500; enabled: false"></a-text>
+
+                    <a-box id="squarefuturist" class="clickable" material="color: #cb1515" geometry="" position="-0.15 1.57987 4.70151" rotation="0 0 -9.621107295836785" scale="0.29519 0.29519 0.05904" 
+                    animation="property: material.color; from:#ff4545; to : #5c0000; dir:alternate; loop:true; dur: 1500"
+                    animation__mouseenter="property: opacity; from: 1.0; to: 0.5; startEvents: mouseenter; easing: linear" 
+                    animation__mouseleave="property: opacity; from: 0.5; to: 1;  startEvents: mouseleave; easing: linear"
+                    event-set__text="_event:mouseenter; _target: #II; animation.enabled:true; animation__2.enabled:false"
+                    event-set__text1="_event:mouseleave; _target: #II; animation.enabled:false; animation__2.enabled:true"
+                    event-set__pointerout="_event:click; _target: #cursor; raycaster.objects: .futurist"
+                    event-set__pointerout1="_event:click; _target: #right-hand; raycaster.objects: .futurist"
+                    event-set__structure="_event:click; _target: #structure; visible:false"
+                    event-set__structure1="_event:click; _target: #futuriststructure; visible:true" 
+                    event-set__m1="_event:click; _target: #F1; material.visible:true"
+                    event-set__ima="_event:click; _target : #MainRInfo; scale : 0 0 0"
+                    event-set__mainroom="_event:click; _target: #mainroom; visible:false"
+                    event-set__futuristroom="_event:click; _target: #futuristroom; visible:true"
+                    sound="src: #MusicCompo2; on: click; distanceModel:linear"></a-box>
+                 
+                    <a-text id="III" position="0.44 2.3 4.655" rotation="0.3 180 -1" text="value: The future of Suprematism; color: #000000 ; opacity:0 ;  transparent:true" scale="0.35 0.35 0.35" 
+                    animation="property: text.opacity; to: 1.0; loop: NaN; dur: 500; enabled: false" 
+                    animation__2="property: text.opacity; to: 0.0; loop: NaN; dur: 500; enabled: false"></a-text>
+
+                    <a-entity id="circlelegacy" class="clickable" material="color: #ffffff; emissive: #000000" geometry="primitive: cylinder; segmentsRadial: 64" position="0.25 1.3 4.66896" scale="0.17584 0.04571 0.17584" rotation="0 90 -90.00021045914971" 
+                    animation="property: material.color; from:#ffffff; to : #949494; dir:alternate; loop:true; dur: 2000"
+                    animation__mouseenter="property: opacity; from: 1.0; to: 0.5; startEvents: mouseenter" 
+                    animation__mouseleave="property: opacity; from: 0.5; to: 1;  startEvents: mouseleave"
+                    event-set__text="_event:mouseenter; _target: #III; animation.enabled:true; animation__2.enabled:false"
+                    event-set__text1="_event:mouseleave; _target: #III; animation.enabled:false; animation__2.enabled:true"
+                    event-set__pointerout="_event:click; _target: #cursor; raycaster.objects: .fut"
+                    event-set__pointerout1="_event:click; _target: #right-hand; raycaster.objects: .fut"
+                    event-set__ground="_event:click; _target: #groundfut; scale: 0.67 0.67 0.67"
+                    event-set__structure="_event:click; _target: #structure; visible:false"
+                    event-set__structure1="_event:click; _target: #futurestructure; visible:true" 
+                    event-set__m1="_event:click; _target: #Fut1; material.visible:true"
+                    event-set__ima="_event:click; _target : #MainRInfo; scale : 0 0 0"
+                    event-set__mainroom="_event:click; _target: #mainroom; visible:false"
+                    event-set__thefutureroom="_event:click; _target: #thefuture; visible:true"
+                    sound="src: #MusicCompo3; on: click; distanceModel:linear"></a-entity>
+                  </a-entity>  
+                  
+  </a-scene>  
+
+  </body>
+</html>
